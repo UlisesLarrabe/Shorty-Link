@@ -4,7 +4,7 @@ import ShowNewLink from "../ShowNewLink/ShowNewLink";
 import ErrorStatus from "../ErrorStatus/ErrorStatus";
 
 const InputUrl = () => {
-  const API_URL = process.env.NEXT_PUBLIC_API;
+  const API_KEY = process.env.NEXT_PUBLIC_API;
   const [url, setUrl] = useState("");
   const [shorterLink, setShorterLink] = useState("");
   const [copied, setCopied] = useState(false);
@@ -15,7 +15,9 @@ const InputUrl = () => {
 
   const getShorterLink = async (url) => {
     try {
-      const res = await fetch(`${API_URL}${url}`);
+      const res = await fetch(
+        `https://www.shareaholic.com/v2/share/shorten_link?apikey=${API_KEY}&url=${url}`
+      );
       if (!res.ok) {
         setError({ status: true, text: "Ha ocurrido un error" });
         return;
